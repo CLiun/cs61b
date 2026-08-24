@@ -5,7 +5,7 @@ import java.util.Observable;
 
 
 /** The state of a game of 2048.
- *  @author TODO: YOUR NAME HERE
+ *  @author CLiun
  */
 public class Model extends Observable {
     /** Current contents of the board. */
@@ -138,6 +138,14 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
+        int s = b.size();
+        for (int i = 0; i < s; i += 1) {
+            for (int j = 0; j < s; j += 1) {
+                if (b.tile(i, j) == null) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -148,6 +156,18 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
+        int s = b.size();
+        for (int i = 0; i < s; i += 1) {
+            for (int j = 0; j < s; j += 1) {
+                Tile currTile = b.tile(i, j);
+                if (currTile == null) {
+                    continue;
+                }
+                if (currTile.value() == MAX_PIECE) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -158,7 +178,29 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
+        // At least one empty space
+        if (emptySpaceExists(b)) {
+            return true;
+        }
+        // Adjacent tiles have same value
+        // Iterate the side, find at least one side from which tile(r, c)
+        // has same value as tile(r+1, c). r, c is the coordinates in
+        // specific direction.
+        // Change view perspective instead of checking adjancent tile at 4
+        // directions. Only need check the right hand one.
+
+        for (Side currView : Side.values()) {
+            b.setViewingPerspective(currView);
+            for (int c = 0; c < b.size() - 1; c++) {
+                for (int r = 0; r < b.size(); r++) {
+                    Tile tile1 = b.tile(c, r);
+                    Tile tile2 = b.tile(c + 1, r);
+                    if (tile1.value() == tile2.value()) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
