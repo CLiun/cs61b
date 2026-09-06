@@ -144,7 +144,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
                 return false;
             }
             for (int i = 0; i < size(); i++) {
-                if (get(i) != deque1.get(i)) {
+                if (!get(i).equals(deque1.get(i))) {
                     return false;
                 }
             }
@@ -154,16 +154,16 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     private static void main(String[] args) {
-        ArrayDeque<Integer> arr1 = new ArrayDeque<>();
+        ArrayDeque<String> arr1 = new ArrayDeque<>();
         for (int i = 0; i < 10; i++) {
-            arr1.addFirst(i);
+            arr1.addFirst(i + " ");
         }
-        ArrayDeque<Integer> arr2 = new ArrayDeque<>();
+        ArrayDeque<String> arr2 = new ArrayDeque<>();
         for (int i = 0; i < 10; i++) {
-            arr2.addFirst(i);
+            arr2.addFirst(i + " ");
         }
         System.out.println(arr1.equals(arr2));
-        for (int i : arr1) {
+        for (String i : arr1) {
             System.out.println(i + " ");
         }
 

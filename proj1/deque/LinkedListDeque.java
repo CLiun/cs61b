@@ -157,8 +157,16 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             if (this.size() != deque2.size()) {
                 return false;
             }
-            for (int i = 0; i < size(); i++) {
-                if (this.get(i) != deque2.get(i)) {
+//            Iterator<T> iterator1 = iterator();
+//            Iterator<T> iterator2 = deque2.iterator();
+//            while (iterator1.hasNext()) {
+//                if (!iterator1.next().equals(iterator2.next())) {
+//                    return false;
+//                }
+//            }
+            int length = size();
+            for (int i = 0; i < length; i++) {
+                if (!get(i).equals(deque2.get(i))) {
                     return false;
                 }
             }
@@ -168,17 +176,17 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     private static void main(String[] args) {
-        LinkedListDeque<Integer> linkedListDeque1 = new LinkedListDeque<>();
+        LinkedListDeque<String> linkedListDeque1 = new LinkedListDeque<>();
         for (int i = 0; i < 10; i++) {
-            linkedListDeque1.addFirst(i);
+            linkedListDeque1.addFirst("1");
         }
-        ArrayDeque<Integer> arr2 = new ArrayDeque<>();
+        ArrayDeque<String> arr2 = new ArrayDeque<>();
         for (int i = 0; i < 10; i++) {
-            arr2.addFirst(i);
+            arr2.addFirst("1");
         }
         System.out.println(linkedListDeque1.equals(arr2));
 
-        for (int i : linkedListDeque1) {
+        for (String i : linkedListDeque1) {
             System.out.print(i + " ");
         }
     }
