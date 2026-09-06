@@ -27,7 +27,7 @@ public class LinkedListDeque<T> {
         }
     }
 
-    LinkedListDeque() {
+    public LinkedListDeque() {
         currentSize = 0;
         sentinel = new LLNode();
     }
