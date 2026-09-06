@@ -1,16 +1,18 @@
 package deque;
 
 /**
+ * Java modulo operator %, may return a negative number.
+ * Use Math.floorMod(x, y) instead.
  * Circular array, need calculate current first item.
  * First item index is nextFirst + 1 % length
  * i-th item use index as offset based on first item.
  * need modular length.
  */
 public class ArrayDeque<T> {
-    T[] items;
-    int currSize;
-    int nextFirst;
-    int nextLast;
+    private T[] items;
+    private int currSize;
+    private int nextFirst;
+    private int nextLast;
 
     public ArrayDeque() {
         currSize = 0;
@@ -19,54 +21,59 @@ public class ArrayDeque<T> {
         nextLast = 1;
     }
 
-    private void resize() {
-        T[] bigger = (T[]) new Object[size() * 2];
-        System.arraycopy(items, 0, bigger, 0, size());
+    private void resize(int newSize) {
+        T[] newItems = (T[]) new Object[newSize];
+        for (int i = 0; i < size(); i++) {
+            newItems[i] = get(i);
+        }
+        items = newItems;
+        nextFirst = items.length - 1;
+        nextLast = size();
     }
 
-    private void resizeSmaller() {
-        T[] smaller = (T[]) new Object[size() / 2];
-        for (int i = 0; i < size(); i++) {
-            smaller[i] = get(i);
-        }
-    }
     public void addFirst(T item) {
         // Consider resizing later.
         if (size() == items.length) {
-            resize();
+            resize(size() * 2);
         }
         items[nextFirst] = item;
         // Case out of boundry
-        nextFirst = (nextFirst - 1) % items.length;
+        nextFirst = Math.floorMod(nextFirst - 1, items.length);
         currSize += 1;
     }
 
     public void addLast(T item) {
         if (size() == items.length) {
-            resize();
+            resize(size() * 2);
         }
         items[nextLast] = item;
         // Case next last out of boundry
-        nextLast = (nextLast + 1) % items.length;
+        nextLast = Math.floorMod(nextLast + 1, items.length);
         currSize += 1;
     }
 
     public T removeFirst() {
+        if (isEmpty()) {
+            return null;
+        }
         if (items.length > 8 && (items.length / size()) > 4) {
-            resizeSmaller();
+            resize(size() / 2);
         }
 
-        nextFirst = (nextFirst + 1) % items.length;
+        nextFirst = Math.floorMod(nextFirst + 1, items.length);
         currSize -= 1;
         return items[nextFirst];
     }
 
     public T removeLast() {
+        if (isEmpty()) {
+            return null;
+        }
         if (items.length > 8 && (items.length / size()) > 4) {
-            resizeSmaller();
+            resize(size() / 2);
         }
 
-        nextLast = (nextLast - 1) % items.length;
+        nextLast = Math.floorMod(nextLast - 1, items.length);
         currSize -= 1;
         return items[nextLast];
     }
@@ -83,8 +90,8 @@ public class ArrayDeque<T> {
         if (index >= size()) {
             return null;
         }
-        int firstIndex = (nextFirst + 1) % items.length;
-        int offsetIndex = (firstIndex + index) % items.length;
+        int firstIndex = Math.floorMod(nextFirst + 1, items.length);
+        int offsetIndex = Math.floorMod(firstIndex + index, items.length);
         return items[offsetIndex];
     }
 
@@ -97,8 +104,7 @@ public class ArrayDeque<T> {
 
     public static void main(String[] args) {
         ArrayDeque<Integer> arr1 = new ArrayDeque<>();
-
+        System.out.println(Math.floorMod(-1, 3));
     }
-
 
 }
