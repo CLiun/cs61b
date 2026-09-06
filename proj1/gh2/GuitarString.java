@@ -20,7 +20,7 @@ public class GuitarString {
         //       cast the result of this division operation into an int. For
         //       better accuracy, use the Math.round() function before casting.
         //       Your should initially fill your buffer array with zeros.
-        int capacity = (int) Math.round(SR/frequency);
+        int capacity = (int) Math.round(SR / frequency);
         buffer = new ArrayDeque<>();
         for (int i = 0; i < capacity; i++) {
             buffer.addLast(0.0);

@@ -60,7 +60,7 @@ public class TestArrayDequeEC {
         LinkedListDeque<Integer> buglist = new LinkedListDeque<>();
         int N = 50000;
         for (int i = 0; i < N; i += 1) {
-            int operationNumber = StdRandom.uniform(0, 6);
+            int operationNumber = StdRandom.uniform(0, 7);
             if (operationNumber == 0) {
                 // addLast
                 int randVal = StdRandom.uniform(0, 100);
@@ -104,6 +104,8 @@ public class TestArrayDequeEC {
                 int retVal1 = L.get(index);
                 int retVal2 =  buglist.getRecursive(index);
                 assertEquals(retVal1, retVal2);
+            } else if (operationNumber == 6) {
+                assertTrue(L.equals(buglist));
             }
         }
     }
