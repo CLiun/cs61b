@@ -1,6 +1,6 @@
 package deque;
 
-import jh61b.junit.In;
+// import jh61b.junit.In;
 
 import java.util.Iterator;
 
@@ -152,7 +152,8 @@ public class LinkedListDeque<T> implements Deque<T>{
         if (this == other) {
             return true;
         }
-        if (other instanceof Deque deque2) {
+        if (other instanceof Deque ) {
+            Deque<T> deque2 = (Deque<T>) other;
             if (this.size() != deque2.size()) {
                 return false;
             }

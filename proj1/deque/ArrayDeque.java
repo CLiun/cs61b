@@ -1,7 +1,5 @@
 package deque;
 
-import afu.org.checkerframework.checker.oigj.qual.O;
-
 import java.util.Iterator;
 
 /**
@@ -140,7 +138,8 @@ public class ArrayDeque<T> implements Deque<T> {
         if (this == o1) {
             return true;
         }
-        if (o1 instanceof Deque deque1) {
+        if (o1 instanceof Deque) {
+            Deque<T> deque1 = (Deque<T>) o1;
             if (this.size() != deque1.size()) {
                 return false;
             }
