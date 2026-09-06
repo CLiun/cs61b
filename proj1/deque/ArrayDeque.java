@@ -10,7 +10,7 @@ import java.util.Iterator;
  * i-th item use index as offset based on first item.
  * need modular length.
  */
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] items;
     private int currSize;
     private int nextFirst;
@@ -113,11 +113,11 @@ public class ArrayDeque<T> implements Deque<T> {
     public Iterator<T> iterator() {
         return new ADIterator();
     }
-    private class ADIterator implements Iterator<T>{
+    private class ADIterator implements Iterator<T> {
 
         private int nextIndex;
 
-        public ADIterator() {
+        ADIterator() {
             nextIndex = 0;
         }
         @Override
@@ -153,9 +153,9 @@ public class ArrayDeque<T> implements Deque<T> {
         return false;
     }
 
-    private static void main(String[] args) {
+    public static void main(String[] args) {
         ArrayDeque<Integer> arr1 = new ArrayDeque<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             arr1.addFirst(i);
         }
         ArrayDeque<Integer> arr2 = new ArrayDeque<>();
@@ -163,9 +163,8 @@ public class ArrayDeque<T> implements Deque<T> {
             arr2.addFirst(i);
         }
         System.out.println(arr1.equals(arr2));
-        Iterator<Integer> iterator = arr1.iterator();
-        while (iterator.hasNext()) {
-            System.out.println(iterator.next()+ " ");
+        for (int i : arr1) {
+            System.out.println(i + " ");
         }
 
     }

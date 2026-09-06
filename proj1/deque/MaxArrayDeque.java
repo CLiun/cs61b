@@ -31,12 +31,4 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         }
         return tempMax;
     }
-
-    public static void main(String[] args) {
-        MaxArrayDeque<Integer> maxArray = new MaxArrayDeque<>(new MyComparator());
-        maxArray.addFirst(3);
-        maxArray.addFirst(88);
-        maxArray.addFirst(99);
-    }
-
 }
