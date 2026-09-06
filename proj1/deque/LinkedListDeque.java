@@ -97,11 +97,16 @@ public class LinkedListDeque<T> {
         LLNode p = sentinel;
         while (p.next != sentinel) {
             p = p.next;
-            System.out.println(p.val);
+            System.out.print(p.val + " ");
         }
+        System.out.println();
     }
     public static void main(String[] args) {
         LinkedListDeque<Integer> LLDeque1 = new LinkedListDeque<>();
         LLDeque1.size();
+        LLDeque1.addFirst(1);
+        LLDeque1.addLast(2);
+        LLDeque1.addLast(3);
+        LLDeque1.printDeque();
     }
 }
