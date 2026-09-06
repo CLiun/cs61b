@@ -93,7 +93,7 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public T get(int index) {
-        if (index >= size()) {
+        if (index >= size() || index < 0) {
             return null;
         }
         int firstIndex = Math.floorMod(nextFirst + 1, items.length);
@@ -154,7 +154,7 @@ public class ArrayDeque<T> implements Deque<T> {
         return false;
     }
 
-    public static void main(String[] args) {
+    private static void main(String[] args) {
         ArrayDeque<Integer> arr1 = new ArrayDeque<>();
         for (int i = 0; i < 100; i++) {
             arr1.addFirst(i);

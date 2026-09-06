@@ -57,7 +57,7 @@ public class ArrayDequeTest {
     @Test
     public void randomizedTest() {
         Deque<Integer> L = new ArrayDeque<>();
-        Deque<Integer> buglist = new LinkedListDeque<>();
+        LinkedListDeque<Integer> buglist = new LinkedListDeque<>();
         int N = 50000;
         for (int i = 0; i < N; i += 1) {
             int operationNumber = StdRandom.uniform(0, 6);
@@ -102,7 +102,7 @@ public class ArrayDequeTest {
                 }
                 int index = StdRandom.uniform(0, L.size());
                 int retVal1 = L.get(index);
-                int retVal2 = buglist.get(index);
+                int retVal2 =  buglist.getRecursive(index);
                 assertEquals(retVal1, retVal2);
             }
         }

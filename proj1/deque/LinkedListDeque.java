@@ -61,7 +61,7 @@ public class LinkedListDeque<T> implements Deque<T>{
     // Iterate deque, find node at index, return node.val
     @Override
     public T get(int index) {
-        if (index >= size()) {
+        if (index >= size() || index < 0) {
             return null;
         }
 
@@ -73,6 +73,18 @@ public class LinkedListDeque<T> implements Deque<T>{
         return p.val;
     }
 
+    private T getHelper(LLNode head, int index) {
+        if (index == 0) {
+            return head.val;
+        }
+        return getHelper(head.next, index - 1);
+    }
+    public T getRecursive(int index) {
+        if (index >= size() || index < 0) {
+            return null;
+        }
+        return getHelper(sentinel.next, index);
+    }
     @Override
     public T removeFirst() {
         if (isEmpty()) {
@@ -154,7 +166,7 @@ public class LinkedListDeque<T> implements Deque<T>{
         return false;
     }
 
-    public static void main(String[] args) {
+    private static void main(String[] args) {
         LinkedListDeque<Integer> LLDeque1 = new LinkedListDeque<>();
         for (int i = 0; i < 100; i++) {
             LLDeque1.addFirst(i);
