@@ -6,7 +6,7 @@ The first node is sentinel.next
 The last node is sentinel.prev
 size() return the item number of deque(sentinel exclusive),
  */
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T>{
     private int currentSize;
     private LLNode sentinel;
 
@@ -33,16 +33,13 @@ public class LinkedListDeque<T> {
     }
 
     // Get deque size.
+    @Override
     public int size() {
         return currentSize;
     }
 
-    // Check if deque is empty.
-    public boolean isEmpty() {
-        return currentSize == 0;
-    }
-
     // Add item at first of deque (first valid item is sentinel.next)
+    @Override
     public void addFirst(T item) {
         sentinel.next = new LLNode(item, sentinel.next, sentinel);
         sentinel.next.next.prev = sentinel.next;
@@ -50,6 +47,7 @@ public class LinkedListDeque<T> {
     }
 
     // Add item at last of deque
+    @Override
     public void addLast(T item) {
         sentinel.prev.next = new LLNode(item, sentinel, sentinel.prev);
         sentinel.prev = sentinel.prev.next;
@@ -57,6 +55,7 @@ public class LinkedListDeque<T> {
     }
 
     // Iterate deque, find node at index, return node.val
+    @Override
     public T get(int index) {
         if (index >= size()) {
             return null;
@@ -70,6 +69,7 @@ public class LinkedListDeque<T> {
         return p.val;
     }
 
+    @Override
     public T removeFirst() {
         if (isEmpty()) {
             return null;
@@ -82,6 +82,7 @@ public class LinkedListDeque<T> {
         return removeVal;
     }
 
+    @Override
     public T removeLast() {
         if (isEmpty()) {
             return null;
@@ -93,6 +94,7 @@ public class LinkedListDeque<T> {
         return removeVal;
     }
 
+    @Override
     public void printDeque() {
         LLNode p = sentinel;
         while (p.next != sentinel) {

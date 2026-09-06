@@ -8,7 +8,7 @@ package deque;
  * i-th item use index as offset based on first item.
  * need modular length.
  */
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T>{
     private T[] items;
     private int currSize;
     private int nextFirst;
@@ -31,6 +31,7 @@ public class ArrayDeque<T> {
         nextLast = size();
     }
 
+    @Override
     public void addFirst(T item) {
         // Consider resizing later.
         if (size() == items.length) {
@@ -42,6 +43,7 @@ public class ArrayDeque<T> {
         currSize += 1;
     }
 
+    @Override
     public void addLast(T item) {
         if (size() == items.length) {
             resize(size() * 2);
@@ -52,12 +54,13 @@ public class ArrayDeque<T> {
         currSize += 1;
     }
 
+    @Override
     public T removeFirst() {
         if (isEmpty()) {
             return null;
         }
         if (items.length > 8 && (items.length / size()) > 4) {
-            resize(size() / 2);
+            resize(items.length / 2);
         }
 
         nextFirst = Math.floorMod(nextFirst + 1, items.length);
@@ -65,12 +68,13 @@ public class ArrayDeque<T> {
         return items[nextFirst];
     }
 
+    @Override
     public T removeLast() {
         if (isEmpty()) {
             return null;
         }
         if (items.length > 8 && (items.length / size()) > 4) {
-            resize(size() / 2);
+            resize(items.length / 2);
         }
 
         nextLast = Math.floorMod(nextLast - 1, items.length);
@@ -78,14 +82,12 @@ public class ArrayDeque<T> {
         return items[nextLast];
     }
 
+    @Override
     public int size() {
         return currSize;
     }
 
-    public boolean isEmpty() {
-        return size() == 0;
-    }
-
+    @Override
     public T get(int index) {
         if (index >= size()) {
             return null;
@@ -95,6 +97,7 @@ public class ArrayDeque<T> {
         return items[offsetIndex];
     }
 
+    @Override
     public void printDeque() {
         for (int i = 0; i < size(); i++) {
             System.out.print(get(i) + " ");
