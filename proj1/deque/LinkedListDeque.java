@@ -1,5 +1,9 @@
 package deque;
 
+import jh61b.junit.In;
+
+import java.util.Iterator;
+
 /*
 initialize a deque with a sentinel node.
 The first node is sentinel.next
@@ -103,12 +107,69 @@ public class LinkedListDeque<T> implements Deque<T>{
         }
         System.out.println();
     }
+
+    public Iterator<T> iterator() {
+        return new LLDIterator();
+    }
+
+    private class LLDIterator implements Iterator<T>{
+        LLNode p;
+        int count;
+
+        public LLDIterator() {
+            p = sentinel.next;
+            count = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return count < size();
+        }
+
+        @Override
+        public T next() {
+            T retVal = p.val;
+            p = p.next;
+            count += 1;
+            return retVal;
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other instanceof Deque deque2) {
+            if (this.size() != deque2.size()) {
+                return false;
+            }
+            for (int i = 0; i < size(); i++) {
+                if (this.get(i) != deque2.get(i)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         LinkedListDeque<Integer> LLDeque1 = new LinkedListDeque<>();
-        LLDeque1.size();
-        LLDeque1.addFirst(1);
-        LLDeque1.addLast(2);
-        LLDeque1.addLast(3);
-        LLDeque1.printDeque();
+        for (int i = 0; i < 100; i++) {
+            LLDeque1.addFirst(i);
+        }
+        ArrayDeque<Integer> arr2 = new ArrayDeque<>();
+        for (int i = 0; i < 100; i++) {
+            arr2.addFirst(i);
+        }
+        System.out.println(LLDeque1.equals(arr2));
+
+        Iterator<Integer> iterator = LLDeque1.iterator();
+        while (iterator.hasNext()) {
+            System.out.print(iterator.next() + " ");
+        }
+
+
     }
 }

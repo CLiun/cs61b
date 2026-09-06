@@ -1,5 +1,9 @@
 package deque;
 
+import afu.org.checkerframework.checker.oigj.qual.O;
+
+import java.util.Iterator;
+
 /**
  * Java modulo operator %, may return a negative number.
  * Use Math.floorMod(x, y) instead.
@@ -8,7 +12,7 @@ package deque;
  * i-th item use index as offset based on first item.
  * need modular length.
  */
-public class ArrayDeque<T> implements Deque<T>{
+public class ArrayDeque<T> implements Deque<T> {
     private T[] items;
     private int currSize;
     private int nextFirst;
@@ -105,9 +109,66 @@ public class ArrayDeque<T> implements Deque<T>{
         System.out.println();
     }
 
+    private int changeIndex(int i) {
+        return ((i % items.length) + items.length) % items.length;
+    }
+    public Iterator<T> iterator() {
+        return new ADIterator();
+    }
+    private class ADIterator implements Iterator<T>{
+
+        private int nextIndex;
+
+        public ADIterator() {
+            nextIndex = 0;
+        }
+        @Override
+        public boolean hasNext() {
+            return nextIndex < size();
+        }
+
+        @Override
+        public T next() {
+            T retVal = get(nextIndex);
+            nextIndex += 1;
+            return retVal;
+        }
+    }
+
+    @Override
+    public boolean equals(Object o1) {
+        if (this == o1) {
+            return true;
+        }
+        if (o1 instanceof Deque deque1) {
+            if (this.size() != deque1.size()) {
+                return false;
+            }
+            for (int i = 0; i < size(); i++) {
+                if (get(i) != deque1.get(i)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         ArrayDeque<Integer> arr1 = new ArrayDeque<>();
-        System.out.println(Math.floorMod(-1, 3));
+        for (int i = 0; i < 100; i++) {
+            arr1.addFirst(i);
+        }
+        ArrayDeque<Integer> arr2 = new ArrayDeque<>();
+        for (int i = 0; i < 100; i++) {
+            arr2.addFirst(i);
+        }
+        System.out.println(arr1.equals(arr2));
+        Iterator<Integer> iterator = arr1.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next()+ " ");
+        }
+
     }
 
 }
