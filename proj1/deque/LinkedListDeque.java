@@ -152,8 +152,8 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         if (this == other) {
             return true;
         }
-        if (other instanceof Deque) {
-            Deque<T> deque2 = (Deque<T>) other;
+        if (other instanceof LinkedListDeque) {
+            LinkedListDeque<T> deque2 = (LinkedListDeque<T>) other;
             if (this.size() != deque2.size()) {
                 return false;
             }
@@ -173,7 +173,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             LinkedListDeque1.addFirst(i);
         }
         ArrayDeque<Integer> arr2 = new ArrayDeque<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             arr2.addFirst(i);
         }
         System.out.println(LinkedListDeque1.equals(arr2));
@@ -182,7 +182,5 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         for (int i : LinkedListDeque1) {
             System.out.print(i + " ");
         }
-
-
     }
 }

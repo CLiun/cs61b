@@ -138,8 +138,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (this == o1) {
             return true;
         }
-        if (o1 instanceof Deque) {
-            Deque<T> deque1 = (Deque<T>) o1;
+        if (o1 instanceof ArrayDeque) {
+            ArrayDeque<T> deque1 = (ArrayDeque<T>) o1;
             if (this.size() != deque1.size()) {
                 return false;
             }
@@ -153,13 +153,13 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         return false;
     }
 
-    public static void main(String[] args) {
+    private static void main(String[] args) {
         ArrayDeque<Integer> arr1 = new ArrayDeque<>();
         for (int i = 0; i < 10; i++) {
             arr1.addFirst(i);
         }
         ArrayDeque<Integer> arr2 = new ArrayDeque<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             arr2.addFirst(i);
         }
         System.out.println(arr1.equals(arr2));
